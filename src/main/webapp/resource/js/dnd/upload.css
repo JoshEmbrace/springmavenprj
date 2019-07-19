@@ -1,0 +1,24 @@
+
+
+.d-none{ display: none;}
+#upload { }
+#upload .box { display: flex; box-sizing: border-box; width: 900px; height: 500px; margin-left: auto; margin-right: auto; border: 1px solid #ccc;}
+#upload .drop-zone { width: 600px; height: 100%; border-right: 1px solid #ccc; background: #fafafa; text-align: center; } 
+#upload .drop-zone .file-selector {margin: 0 auto; width: 50%; height: 50%; background: #ccc; border-radius: 20%; color: white; line-height: 200px; text-align: center; cursor: pointer;}
+#upload .drop-zone .progress-bar { width: 100%; text-align: center; }
+
+.progress-box{ float: left; width: 500px; height: 20px; border: 1px solid #bbb;}
+.progress-b{ height: 20px; border: 1px solid #bbb; background: beige; width: 0%}
+
+#upload .drop-zone.valide{
+    background: rgb(152, 212, 74);
+}
+#upload .drop-zone.invalide{
+    background: rgb(235, 14, 62);
+}
+#upload .file-list { width: 300px; background: #efefef;}
+
+#imgbox { width: 900px; margin: 0 auto; text-align: center;}
+.img { display: inline-block; width: 24rem; height: 24rem; margin-top: 20px; background: url("https://i.pinimg.com/originals/c1/d0/d8/c1d0d83cede0c7bcafacc547327ddcc0.jpg") no-repeat; background-size: cover;}
+
+

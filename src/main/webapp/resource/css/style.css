@@ -1,0 +1,475 @@
+@import url(reset.css);
+
+
+ .content-box{
+    /* --margin: auto; */
+    /* margin-top: 100px; */
+    --background: rgba(0, 0, 255, 0.5);
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+    height: inherit;
+    min-height: inherit;
+    --opacity: 0.5;
+    display: flex;
+}
+
+.clear-fix::after{
+    content: ".";
+    height: 0px;
+    /* ���� �ۿ� ����Ʈ�� �����ش�. */
+    overflow: hidden;
+
+    clear: left;
+    display: block;
+}
+
+.d-none{
+    display: none;
+}
+
+.color-highlight{
+    color:#ff6a00;
+}
+
+.font-bold{
+    font-weight: bold;
+}
+/* ======================================================================= */
+ /* #main-menu-list
+{
+   float: left;
+}  */
+
+/* .menu-list
+{
+    color: aqua;
+}  */
+
+#header{
+    height: 70px;
+    /* background:yellow; */
+    --background: rgba(255, 0, 0, 0.2);
+    
+}
+/* ��� �ȿ��ִ� ��Ÿ���� ������ �������ִ°� ����. */
+    #header .content-box>h1{
+        color: brown;
+    }
+
+/* --------------------------------------------------------------- */
+#visual{
+    height: 171px;
+    /* background:beige; */
+    background: #00f0ff;
+    background: #313131 url("../images/bg-visual.png") no-repeat center;
+    background-position: top right;
+    border-top: 3px solid #8CBA34;
+}
+
+#visual .content-box{
+   
+    background: #313131 url("../images/bg-visual.png") no-repeat center;
+
+}
+
+    #visual .test{
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+        background: url("https://image.fmkorea.com/files/attach/new/20180417/486616/41170129/1021006724/554449902566a4417eee09a4fdb7bd79.jpg");
+        /* contain�� ������ ������ ������ �� ������. ���ΰ� �� ����.
+        cover�� ���� �������� ������ ��ä���� ���ΰ� �����*/
+        background-size: cover;
+        background-attachment: fixed;
+
+    }
+
+/* --------------------------------------------------------------- */
+#body{
+    min-height: 300px;
+    --background:rgb(0, 255, 0);
+    border-top: 5px solid #8CBA34;
+    margin-top: 1px;
+}
+
+    #body>.content-box{
+        display: flex; 
+        /* row�� �⺻�� */
+        flex-direction: row;
+        background: url("../images/bg-body.png") repeat-y;
+        padding-bottom: 50px;
+
+    }
+
+    #body>.content-box>aside{
+        min-height: inherit;
+        width: 205px;
+        --background:yellow;
+        --float: left;
+        background: url("../images/bg-aside-title.png") no-repeat left top;
+
+    }
+
+    /* main�� �� �ѹ��ۿ� �ü��ۿ� ���� �±� �׷��� >���ص���. */
+    #body main{
+        min-height: inherit;
+        width: 720px;
+        --background: beige;
+        --float: left;
+        padding-left: 35px;
+        padding-top: 45px;
+        box-sizing: border-box;
+    }
+
+
+/* --------------------------------------------------------------- */
+#footer{
+    height: 100px;
+    --background:#ff0000;
+    background: #313131;
+}
+
+/* -------------------------������ ����, ������ ��Ÿ��+ ������ ����-------------------------------------- */
+/* �ؽ�Ʈ(����, ��Ʈ����, ����)�� �⺻��Ÿ�� */
+body{
+    font-family: "����",Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #979797;
+}
+
+#logo{
+    background: url("../images/logo.png") no-repeat center;
+    width: 182px; height: 35px;
+    display: inline-block;
+    --border: 1px solid red;
+    /* �۾��� �������� �̴°� (-) �ڽ��� +�������� Ŀ���� +���ϸ� �ٶ�����������. �Ϲ������� -999�� ��������.*/
+    text-indent: -999px;
+    overflow: hidden;
+}
+
+#main-menu{
+    /* ������ ���̴°� �ڱ⸸�� ������ �ƴ�. */
+    display: inline-block;
+    --border: 1px solid blue;
+    font-family: "���� ����", "����", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+}
+
+#main-menu>ul{
+    display: flex;
+    --border: 1px solid black;
+}
+
+#main-menu>ul>li{
+    display: flex;
+    --border: 1px solid crimson;
+    padding-left: 24px;
+    background: url("../images/bg-main-menu-vsp.png") no-repeat 12px center;
+}
+
+/* :first-child(�����ڵ�) li �߿��� ù��° �ڽ� */
+#main-menu>ul>li:first-child{
+    padding: 0px;
+    background: none;
+}
+#lecture-search-form{
+    /*  font-family: "���� ����", "����", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: gray; */
+    display: inline-block;
+    width: 303px;
+    height: 25px;
+    border: 5px solid #8CBA34;
+}
+    #lecture-search-form>form{
+        display: flex;
+    }
+    #lecture-search-form input[type="submit"]{
+    width: 31px;
+    height: 25px;
+    background: url("../images/btn-zoom.png"); 
+    padding: 0px;
+    border: none;
+    /* ��ư�� overflow: hidden �����൵��. �⺻���� �����Ե�, �⺻ dislay�� �ζ��κ��� */
+    text-indent: -999px;
+    border-left: 1px #8CBA34;
+    }
+    #lecture-search-form label{
+        display: inline-block;
+        width: 55px;
+        height: 25px;
+        /* ���ڰ� Ŀ������ ���ڰ� ������, �������� */
+        line-height: 25px;
+        /* ���� ��� ���� */
+        text-align: center;
+        font-weight: bold;
+        background: #ff0000;
+    }
+    #lecture-search-form input[type="text"]{
+        width: calc(100% - 55px - 31px);/*222px;*/
+        height: 25px;
+        border: 0px;
+        background: #000000;
+    }
+
+#lecture-search-form>ul>li{
+    display: flex;
+}
+
+
+/* ���̾ƴ϶� �����̹Ƿ� �Ϲ� ������ó�� ���ϼ��ֵ��� �ζ��κ�������. */
+#member-menu{
+    display: inline-block;
+    /* font-family: "���� ����", "����", sans-serif;
+    font-size: 8px;
+    font-weight: bold;
+    color: gray; */
+}
+#member-menu>ul{
+    display: flex;
+}
+#member-menu>ul>li{
+    font-family: "���� ����", "����", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    
+    padding-left: 9px;
+    background: url("../images/bg-member-menu-sp.png") no-repeat 5px center;
+}
+#member-menu>ul>li:first-child{
+    padding-left: 0px;
+    background: none;
+}
+#direct-menu{
+    display: inline-block;
+}
+#direct-menu>ul{
+    display: flex;
+}
+#direct-menu>ul>li{
+    width: 72px;
+    height: 17px;
+    text-indent: -999px;
+    overflow: hidden;
+}
+
+#direct-menu>ul>li:first-child{
+    background: url("../images/txt-mypage.png") no-repeat center;
+}
+
+#direct-menu>ul>li:last-child{
+    background: url("../images/txt-customer.png") no-repeat center;
+}
+
+
+/* ==========================��� ���� ��ġ======================== */
+#header .content-box{
+    /* �θ� �ڽ��� �������� �ȴ� */
+    position: relative;
+}
+
+#logo{
+   position: absolute;
+   left: 0px;
+   top:23px;
+}
+
+#main-menu{
+    /* ���������κ����� ������ġ */
+    position: absolute; 
+    left: 200px;
+    top: 27px;
+}
+
+#lecture-search-form{
+   position: absolute; 
+   left: 468px;
+   top: 21px;
+}
+
+#member-menu{
+   position: absolute; 
+   right: 0px;
+   top: 20px;
+}
+
+#direct-menu{
+   position: absolute; 
+   right: 0px;
+   top: 40px;
+}
+/* =========aside ������============= */
+#aside-title{
+    font-family: "���� ����", "����", sans-serif;
+    font-size: 24px;
+    color: #000000;
+}
+#customer-menu{
+    font-family: "���� ����", "����", sans-serif;
+    font-weight: bold;
+    color: #808080;
+}
+    #customer-menu>h1{
+    color: #ffffff;
+    height: 27px;
+    line-height: 27px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0.5px 0.5px 1px #000000;
+    background: url(../images/bg-aside-sub-title.png) no-repeat 0px 0px;
+    }
+
+    #customer-menu li{
+        background: url("../images/bg-aside-menu-hsp.png") no-repeat left bottom;
+        height: 26px;
+        line-height: 26px;
+    }
+        #customer-menu a{
+            padding-left: 26px;
+            background: url("../images/icon-current.png") no-repeat 12px center;
+        }
+
+#coworker>h1{
+            font-family: "���� ����", "����", sans-serif;
+            font-size: 13px;
+            color: #000000;
+            padding-left: 26px;
+            background: url("../images/icon-recommend.png") no-repeat;
+        }
+    
+    #coworker>ul{
+            margin-top:10px;
+        }
+    #coworker li {
+            width:180px;
+            height: 50px;
+            text-indent: -999px;
+            overflow: hidden;
+        }
+    #coworker li:first-child{
+            background: url(../images/notepubs.png) no-repeat center;
+        }
+    #coworker li:nth-child(2){
+            background: url(../images/namoolab.png) no-repeat center;
+        }
+     #coworker li:nth-child(3){
+            background: url(../images/hanbit.png) no-repeat center;
+        }
+
+/* ==========================aside ���� ��ġ======================== */
+#aside-title{
+    margin-top: 43px;
+}
+#customer-menu{
+    margin-top: 45px;
+}
+#coworker{
+    margin-top: 20px;
+}
+/* ==========================main ����======================== */
+#breadcrumb{
+    display: inline-block;
+}
+#breadcrumb ol{
+    display: flex;
+}
+#breadcrumb ol li{
+    background: url("../images/icon-path.png") no-repeat left;
+    padding-left: 10px;
+}
+#breadcrumb ol li:first-child{
+    background: url("../images/icon-home.png") no-repeat left;
+    padding-left: 20px;
+}
+
+main>section:first-child>h1{
+    font-family: ���� ����, ����, sans-serif;
+    font-size: 21px;
+    font-weight: bold;
+    color: #646464;
+    padding-left: 25px;
+    background: url(../images/icon-main-title.png) no-repeat left center;
+}
+
+
+#notice table{
+    width: 100%;
+    border-top: #8CBA34 solid 2px;
+    border-spacing: 0px;
+    table-layout: fixed;
+    /* ���� �� �ϳ��θ�(�Ȱ�ġ��) */
+    --border-collapse: collapse;
+}
+#notice table tr{
+    height: 30px;
+    line-height: 30px;
+}
+ #notice table thead tr{
+    background: #f5f5f5 url("../images/bg-title-sp.png") no-repeat left center;
+}
+#notice table td{
+   text-align: center;
+    border-bottom: #e9e9e9 solid 1px;
+    padding: 0px;
+}
+#notice table thead td{
+    background: url("../images/bg-title-sp.png") no-repeat left center;
+}
+#notice table thead td:first-child{
+    background: none;
+}
+#notice table .num{
+    width: 60px;
+}
+#notice table .title{
+    width: 400px;
+    /* �����̽��ٸ� ������ �ű⼭���� �ٹٲ� ��� */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+}
+#notice table tbody .title{
+    text-align: left;
+    text-indent: 10px;
+}
+#notice table tbody .title span{
+   color:red;
+   font-weight:bold;
+}
+#notice table .writer{
+    width: 100px;
+}
+#notice table .date{
+    width: 100px;
+}
+#notice table .hit{
+    width: 60px;
+}
+
+#page-index{
+    display: inline-block;
+}
+
+
+#page-index{
+    display: inline-block;
+}
+#pager ul{
+    display: flex;
+}
+#pager li{
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+}
+#pager li.current{
+    font-weight: bold;
+    color: #ff6a00;
+}

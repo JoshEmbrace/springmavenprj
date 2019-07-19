@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecture.web.dao.NoticeDao">
+	<select id="get" resultType="com.newlecture.web.entity.Notice">
+		<!-- SELECT * FROM NOTICE WHERE ID = #{param1} -->
+		SELECT * FROM NOTICE WHERE ID = #{id}
+	</select>
+	<select id="getList" resultType="com.newlecture.web.entity.NoticeView">
+		<!-- 
+		int start =1+(page-1)*10;//1,11,21,31,41
+		int end = page*10;//10,20,30,40,50 -->
+		
+		<!-- 
+		SELECT * FROM NOTICE_VIEW
+		WHERE ${param2} LIKE '%${param3}%'
+			AND NUM BETWEEN ? AND ?
+		 -->
+		 
+		<!-- param 대신 지정해준 이름으로 해 줄 수 있다 -->
+		SELECT * FROM NOTICE_VIEW
+		WHERE ${field} LIKE '%${query}%'
+			AND NUM BETWEEN 1+(#{page}-1)*10 AND #{page}*10
+		<!-- 	
+		SELECT * FROM NOTICE_VIEW
+		WHERE ${param2} LIKE '%${param3}%'
+			AND NUM BETWEEN 1+(#{param1}-1)*10 AND #{param1}*10
+			 -->
+		<!-- 
+		like '%query%'
+		select * from notice_view where title like '%query%' 
+		 -->
+		 <!-- 
+		 기본적으로 값 추출방식은 # 이다. 여기서 만약 가져온 값이 문자라면 코테이션으로
+		 감싸서 꺼내주고 숫자라면 코데이션없이 준다.
+		 마이바티스는 값을 가져올때 코테이션으로 감싸진 문자열의 코테이션을 빼주는 기능을
+		 지원하는데 그게 ${}이다.
+		  -->
+		<!-- ${}은 ''없이 값만 가져올 때 #{}는 ''안에 가져올때 -->
+	</select>
+	<insert id="insert" parameterType="com.newlecture.web.entity.Notice">
+		<selectKey order="BEFORE" keyProperty="id" resultType="Integer">
+			SELECT NVL(ID,0)+1 ID FROM (SELECT * FROM NOTICE ORDER BY REGDATE DESC) WHERE ROWNUM = 1
+		</selectKey>
+		
+		INSERT INTO NOTICE(ID,TITLE,CONTENT,WRITER_ID)
+		VALUES(#{id},#{title},#{content},#{writerId})
+	</insert>
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

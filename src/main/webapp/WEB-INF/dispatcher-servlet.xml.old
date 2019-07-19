@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+	<!-- <context:annotation-config/> -->
+	<context:component-scan base-package="com.newlecture.web.dao.oracle"/>
+	<context:component-scan base-package="com.newlecture.web.controller"/>
+	<!-- <bean id="/index" class="com.newlecture.web.controller.IndexController"/> -->
+	<mvc:annotation-driven>
+      <mvc:message-converters>
+         <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <property name="supportedMediaTypes">
+               <list>
+                  <value>text/html;charset=UTF-8</value>
+               </list>
+            </property>
+         </bean>
+      </mvc:message-converters><!-- @RequestMapping이 이해할 
+      수 있다??? -->
+	</mvc:annotation-driven>
+	
+	
+	<!-- 다오를 매번생성해야하는 코드를 줄임, 성능이라던지 메모리 효율성 높임 -->	
+	<!-- <bean id="/notice/list" class="com.newlecture.web.controller.notice.ListController"> -->
+		<!-- <property name="noticeDao" ref="noticeDao"></property> -->
+	<!-- </bean> -->
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	<!--ViewResolver: view를 찾아주는 역할 -->
+	</bean>
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+          
+         <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="314572800" />       
+    </bean>
+	
+	<mvc:resources location="/resource/" mapping="/resource/**"/>
+	
+	<!-- <bean id="noticeDao" class="com.newlecture.web.dao.oracle.OracleNoticeDao"/> -->
+	
+
+</beans>

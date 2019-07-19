@@ -1,0 +1,51 @@
+@import url(reset.css);
+
+.icon{
+	background: yellow;
+	
+	
+	display:inline-block;
+	width:24px;
+	height:24px;
+	
+	overflow:hidden;
+	text-indent: -999px;
+}
+
+.icon-menu{
+	background: url("../images/icon/menu.svg") no-repeat center;
+}
+
+.icon-search{
+	background: url("../images/icon/search.svg") no-repeat center;
+}
+
+/*----------------------------------------------------*/
+
+#header{
+	display: flex;
+	align-items: center;
+	height: 54px;
+	--background: blue;
+	justify-content: space-between;
+	padding:0px 10px;
+}
+
+#header>*{
+	display: flex;
+	align-items: center;
+}
+
+
+
+#logo{
+    background: url("../images/logo.png") no-repeat center;
+    width:182px;
+    height: 35px;
+    
+    text-indent: -999px;
+    overflow: hidden;
+
+    display: inline-block;
+}
+
