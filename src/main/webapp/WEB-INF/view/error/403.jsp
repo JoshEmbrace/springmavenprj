@@ -3,9 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<main>
-	<section id="top-lecture">${x }</section>
-	<section id="lecture"></section>
-	<section id="notice"></section>
-	<section></section>
-</main>
+<body>
+접근 권한이 없습니다
+
+<a href="" onclick="window.history.back(); return false;">이전 페이지로 돌아가기</a>
+</body>

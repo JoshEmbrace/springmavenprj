@@ -93,7 +93,7 @@ public class NoticeController {
 			
 			model.addAttribute("list", list);
 			
-			return "notice/list";
+			return "notice.list";
 		}
 	
 	

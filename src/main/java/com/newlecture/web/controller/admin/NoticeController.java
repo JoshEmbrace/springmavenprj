@@ -54,8 +54,11 @@ public class NoticeController {
 		
 		//NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
 		List<NoticeView> list = noticeDao.getList();
+		
 		model.addAttribute("list", list);
-		return "admin/notice/list";
+		
+		//return "admin/notice/list";//jsp 페이지를 찾기위한 url의 정보
+		return "admin.notice.list"; // tiles에게 페이지 조립을 부탁하기 위한 매핑 이름
 	}
 	
 	
@@ -198,29 +201,33 @@ public class NoticeController {
 	}
 
 	@GetMapping("edit")
-	public String edit(Model model, HttpServletRequest request) {
+	public String edit(Integer id, Model model) {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		//int id = Integer.parseInt(request.getParameter("id"));
 		model.addAttribute("notice", noticeDao.get(id));
 
 		return "admin/notice/edit";
 	}
 
 	@PostMapping("edit")
-	public String edit(HttpServletRequest request) throws ClassNotFoundException, SQLException {
+	public String edit(Notice notice) throws ClassNotFoundException, SQLException {
+		//title, content, id(hidden)
+		Notice n = noticeDao.get(notice.getId());
+		n.setTitle(notice.getTitle());
+		n.setContent(notice.getContent());
+		
+		noticeDao.update(n);
 
-		Integer id = Integer.parseInt(request.getParameter("id"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-
-		Notice notice = new Notice();
-		notice.setId(id);
-		notice.setTitle(title);
-		notice.setContent(content);
-
-		noticeDao.update(notice);
-
-		return "redirect:detail?id=" + id;
+		return "redirect:detail?id=" + notice.getId();
+	}
+	
+	@RequestMapping("del")
+	public String del(
+		@RequestParam(name="id") Integer id
+	) throws ClassNotFoundException, SQLException {
+		noticeDao.delete(id);
+		
+		return "redirect:list";
 	}
 
 }

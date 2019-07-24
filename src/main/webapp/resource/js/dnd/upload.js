@@ -74,7 +74,15 @@ window.addEventListener("load", function () {
 
         var request = new XMLHttpRequest();
         request.addEventListener("load", function () {
-            alert(request.responseText);
+            if(request.responseText == "okay"){
+                //목록을 새로 요청하기
+                var req = new XMLHttpRequest();
+                req.addEventListener("load", function(e){
+                    alert(e.responseText);
+                });
+                req.open("GET","../../../file-list");
+                req.send();
+            }
         });
         request.upload.addEventListener("progress", function (e) {
             //loaded, total

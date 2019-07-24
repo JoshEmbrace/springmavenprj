@@ -33,17 +33,17 @@ public class MyBatisNoticeDao implements NoticeDao {
 	@Override
 	public List<NoticeView> getList() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		return getList(1, "title", "");
+		return getList(null, "title", "");
 	}
 
 	@Override
-	public List<NoticeView> getList(int page) throws ClassNotFoundException, SQLException {
+	public List<NoticeView> getList(Integer page) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return getList(page, "title", "");
 	}
 
 	@Override
-	public List<NoticeView> getList(int page, String field, String query) throws ClassNotFoundException, SQLException {
+	public List<NoticeView> getList(Integer page, String field, String query) throws ClassNotFoundException, SQLException {
 
 		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
 		
@@ -62,14 +62,20 @@ public class MyBatisNoticeDao implements NoticeDao {
 
 	@Override
 	public Notice getPrev(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
 	}
 
 	@Override
 	public Notice getNext(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		
+		Notice notice = noticeDao.get(id);
+		
+		return notice;
 	}
 
 	@Override
@@ -82,14 +88,17 @@ public class MyBatisNoticeDao implements NoticeDao {
 
 	@Override
 	public int delete(int id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		
+		return noticeDao.delete(id);
 	}
 
 	@Override
 	public int update(Notice notice) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
+		
+		return noticeDao.update(notice);
 	}
 
 	@Override

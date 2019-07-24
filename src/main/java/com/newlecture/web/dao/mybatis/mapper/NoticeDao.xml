@@ -3,10 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecture.web.dao.NoticeDao">
-	<select id="get" resultType="com.newlecture.web.entity.Notice">
+
+ 	
+	<resultMap id="noticeMap" type="com.newlecture.web.entity.Notice">
+      <!-- <result column="id" property="id" jdbcType="NUMERIC" javaType="Integer"/>
+      <result column="title" property="title" jdbcType="NVARCHAR" javaType="String" />
+      <result column="content" property="content" jdbcType="CLOB" javaType="String"/> -->
+      <result column="writer_id" property="writerId" jdbcType="VARCHAR"  javaType="String"/>
+      <!-- <result column="regdate" property="regDate" jdbcType="TIMESTAMP"  javaType="Date"/>
+      <result column="hit" property="hit" jdbcType="NUMERIC" javaType="Integer"/> -->
+   </resultMap>
+	<select id="get" resultMap="noticeMap">
 		<!-- SELECT * FROM NOTICE WHERE ID = #{param1} -->
 		SELECT * FROM NOTICE WHERE ID = #{id}
 	</select>
+ 
+<!--
+	<select id="get" resultType="com.newlecture.web.entity.Notice">
+		SELECT * FROM NOTICE WHERE ID = #{param1}
+		SELECT * FROM NOTICE WHERE ID = #{id}
+		SELECT ID, TITLE, CONTENT, WRITER_ID writerId, REGDATE, HIT FROM NOTICE WHERE ID = #{id}  
+	</select>
+ -->
 	<select id="getList" resultType="com.newlecture.web.entity.NoticeView">
 		<!-- 
 		int start =1+(page-1)*10;//1,11,21,31,41
@@ -17,11 +35,18 @@
 		WHERE ${param2} LIKE '%${param3}%'
 			AND NUM BETWEEN ? AND ?
 		 -->
+		SELECT * FROM NOTICE_VIEW
+		WHERE ${field} LIKE '%${query}%' 
+		<if test="page != null">
+        AND NUM BETWEEN 1+(#{page}-1)*10 AND #{page}*10
+    	</if>	 
 		 
-		<!-- param 대신 지정해준 이름으로 해 줄 수 있다 -->
+		<!-- param 대신 지정해준 이름으로 해 줄 수 있다 
 		SELECT * FROM NOTICE_VIEW
 		WHERE ${field} LIKE '%${query}%'
 			AND NUM BETWEEN 1+(#{page}-1)*10 AND #{page}*10
+		-->
+			
 		<!-- 	
 		SELECT * FROM NOTICE_VIEW
 		WHERE ${param2} LIKE '%${param3}%'
@@ -39,6 +64,7 @@
 		  -->
 		<!-- ${}은 ''없이 값만 가져올 때 #{}는 ''안에 가져올때 -->
 	</select>
+	
 	<insert id="insert" parameterType="com.newlecture.web.entity.Notice">
 		<selectKey order="BEFORE" keyProperty="id" resultType="Integer">
 			SELECT NVL(ID,0)+1 ID FROM (SELECT * FROM NOTICE ORDER BY REGDATE DESC) WHERE ROWNUM = 1
@@ -48,9 +74,20 @@
 		VALUES(#{id},#{title},#{content},#{writerId})
 	</insert>
 	
+	<update id="update" parameterType="com.newlecture.web.entity.Notice">
+		UPDATE NOTICE 
+		SET 
+			TITLE=#{title}, 
+			CONTENT=#{content}, 
+			WRITER_ID=#{writerId}, 
+			HIT=#{hit},
+			REGDATE=#{regDate}
+		WHERE ID = #{id}
+	</update>
 	
-	
-	
+	<delete id="delete">
+		DELETE NOTICE WHERE ID = #{id}
+	</delete>
 	
 </mapper>
 

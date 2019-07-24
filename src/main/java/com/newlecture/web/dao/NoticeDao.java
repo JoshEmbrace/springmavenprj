@@ -17,8 +17,8 @@ public interface NoticeDao {
 	
 	
 	List<NoticeView> getList() throws ClassNotFoundException, SQLException;
-	List<NoticeView> getList(int page) throws ClassNotFoundException, SQLException;
-	List<NoticeView> getList( @Param("page") int page, @Param("field") String field, @Param("query") String query) throws ClassNotFoundException, SQLException;
+	List<NoticeView> getList(Integer page) throws ClassNotFoundException, SQLException;
+	List<NoticeView> getList( @Param("page") Integer page, @Param("field") String field, @Param("query") String query) throws ClassNotFoundException, SQLException;
 	
 	//@Select("SELECT * FROM NOTICE WHERE ID = #{id}")
 	Notice get(int id);

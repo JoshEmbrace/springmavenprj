@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.newlecture.web.dao.FileDao;
 import com.newlecture.web.dao.NoticeDao;
 import com.newlecture.web.entity.File;
@@ -39,18 +42,32 @@ public class RootController {
 	 * throws IOException { PrintWriter out = response.getWriter();
 	 * out.println("Welcome Home!!"); }
 	 */
+	
 	@Autowired
 	private FileDao fileDao;
 	
 	@GetMapping("file-list")
 	@ResponseBody
-	public String fileList() {
+	public List<com.newlecture.web.entity.File> fileList(HttpServletRequest request) throws IllegalArgumentException, IllegalAccessException, NoSuchMethodException, SecurityException, InvocationTargetException {
+		
+		ServletContext application  = request.getServletContext();
+		
 		String urlPath = "/upload";
-		String realPath = "";
+		String realPath = application.getRealPath(urlPath);
 		
-		List<File> list = fileDao.getList(realPath);
-		
-		return "";
+		/* 방법1: 우리가 직접 만ㄷㄴ JSON 문자열
+		String jsonList = fileDao.getJSONList(realPath);
+		System.out.println(realPath);
+		return jsonList;
+		*/
+		/* 방법2: Gson을 이용한 JSON 문자열
+		List<com.newlecture.web.entity.File> list = fileDao.getList(realPath);
+		Gson gson = new Gson();
+		return gson.toJson(list);
+		*/
+		//방법 3: 그냥 객체를 반환해보자.
+		List<com.newlecture.web.entity.File> list = fileDao.getList(realPath);
+		return list;
 	}
 	
 	@PostMapping("upload")
@@ -128,11 +145,11 @@ public class RootController {
 	}
 
 	@RequestMapping("index")
-	@ResponseBody
 	public String index() {
 
-		return "환영합니다.";
+		return "root.index";
 	}
+	
 	/*
 	 * @RequestMapping("index")
 	 * 
