@@ -18,21 +18,40 @@
 	<!-- <http auto-config="true"> -->
 	<http>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<form-login
-			login-page="/member/login" 
-			default-target-url="/index"
-		/>
-		
+		<form-login login-page="/member/login" default-target-url="/index"/>
+		<logout logout-url="/member/logout" logout-success-url="/index"/>
 		<access-denied-handler error-page="/error/403"/>
-				
 	</http>
 	<authentication-manager>
+	<authentication-provider>
+         <password-encoder hash="bcrypt"/>
+         <jdbc-user-service data-source-ref="aa"
+         users-by-username-query="SELECT ID USERNAME,PWD PASSWORD,1 ENABLED FROM MEMBER WHERE ID = ?"
+         authorities-by-username-query="SELECT ID USERNAME, 'ROLE_ADMIN' AUTHORITY FROM MEMBER WHERE ID = ?"/>
+         <!-- <user-service>
+            <user name="newlec" 
+                  password="$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G" 
+                  authorities="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT"/>
+                  
+            <user name="dragon" 
+                  password="$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G" 
+                  authorities="ROLE_STUDENT"/>
+         </user-service> -->
+      </authentication-provider>
+      </authentication-manager>
+<!-- 	
+	<authentication-manager>
 		<authentication-provider>
-			<password-encoder hash="bcrypt"/>
+			<password-encoder hash="bcrypt"/> 
+			$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G
+			
+			$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G
+			
 			<user-service>
-				<user name="newlec" password="$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G" authorities="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT"/>
-				<user name="dragon" password="$2a$10$7FzvomZgbNzRXm2th/xDpe3463k1WONaZ8wUxzVL7W.SS1Cw/W04G" authorities="ROLE_STUDENT"/>
+				<user name="newlec" password="{noop}111" authorities="ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT"/>
+				<user name="dragon" password="{noop}222" authorities="ROLE_STUDENT"/>
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
+	 -->
 </beans:beans>

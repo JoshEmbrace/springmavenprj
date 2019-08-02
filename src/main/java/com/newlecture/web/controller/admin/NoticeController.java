@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,17 +40,17 @@ public class NoticeController {
 	*/
 	
 	
-	//@Qualifier("mybatisNoticeDao") ¸ðÈ£ÇÑ°æ¿ì
+	//@Qualifier("mybatisNoticeDao") ï¿½ï¿½È£ï¿½Ñ°ï¿½ï¿½
 	@Autowired
 	private NoticeDao noticeDao;
 	
 	
 	@RequestMapping("list")
 	public String list(Model model) throws ClassNotFoundException, SQLException {
-		//1.¼¼¼Ç µµ±¸¸¦ »ý¼ºÇØ¼­ SqlSession sqlSession = ?;
-		//¼¼¼Ç°´Ã¼¸¦ ÅëÇØ¼­ ¸ÅÆÛ¸¦ ¾ò¾î¼­ ¿øÇÏ´Â ¸Þ¼Òµå¸¦ È£ÃâÇÑ´Ù.
+		//1.ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ SqlSession sqlSession = ?;
+		//ï¿½ï¿½ï¿½Ç°ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµå¸¦ È£ï¿½ï¿½ï¿½Ñ´ï¿½.
 		
-		//2.¼¼¼Çµµ±¸¸¦ ¾ò´Â ÀÛ¾÷À» ¼³Á¤¿¡¼­ ÅÛÇÃ¸´ ¿©±â¼­´Â ±×³É ±× ¼¼¼Çµµ±¸¸¦ ¾ò¾î¼­ È£
+		//2.ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î¼­ È£
 		//List<NoticeView> list= sqlSession.getMapper(NoticeDao.class).getList();
 		
 		//NoticeDao noticeDao = sqlSession.getMapper(NoticeDao.class);
@@ -57,8 +58,8 @@ public class NoticeController {
 		
 		model.addAttribute("list", list);
 		
-		//return "admin/notice/list";//jsp ÆäÀÌÁö¸¦ Ã£±âÀ§ÇÑ urlÀÇ Á¤º¸
-		return "admin.notice.list"; // tiles¿¡°Ô ÆäÀÌÁö Á¶¸³À» ºÎÅ¹ÇÏ±â À§ÇÑ ¸ÅÇÎ ÀÌ¸§
+		//return "admin/notice/list";//jsp ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ urlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		return "admin.notice.list"; // tilesï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¹ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 	}
 	
 	
@@ -74,18 +75,19 @@ public class NoticeController {
 	}
 	*/
 
-	// ## 4.x ÀÌÈÄ ¹öÀü ¹æ½Ä ##
-	// GET ¿äÃ»
+	// ## 4.x ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ##
+	// GET ï¿½ï¿½Ã»
 	@GetMapping("reg")
 	public String reg() {
 
 		return "admin/notice/reg";
 	}
 
-	// POST ¿äÃ»
+	// POST ï¿½ï¿½Ã»
 	@PostMapping("reg")
 	public String reg(Notice notice
 			, String category
+			, Principal principal
 			, MultipartFile file
 			, HttpServletRequest request) throws IOException, ClassNotFoundException, SQLException {
 		// public String reg(Notice notice) {
@@ -97,33 +99,33 @@ public class NoticeController {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(notice.getContent());
 
-		// 1. ¾÷·Îµå °æ·Î¸¦ ¾ò±â
+		// 1. ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½
 		String urlPath = "/upload";
 		String path = request.getServletContext().getRealPath(urlPath);
 
 		System.out.println(path);
 
-		// 2. ¾÷·ÎµåµÈ ÆÄÀÏ¸í ¾ò±â
+		// 2. ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½
 		String fileName = file.getOriginalFilename();//filePart.getSubmittedFileName();
 
-		// 3. °æ·Î ±¸ºÐÀÚ ³Ö±â
+		// 3. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 		String filePath = path + File.separator + fileName; // d:\aa + "bb.jpg" -> d:\aabb.jpg
 
 		System.out.println(filePath);
 
-		// 4. °æ·Î°¡ ¾ø´Ù´Â ¿À·ù ¹®Á¦
+		// 4. ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		File pathFile = new File(path);
-		if (!pathFile.exists()) // Á¸ÀçÇÏÁö ¾ÊÀ¸¸é
-			pathFile.mkdirs();// »ý¼ºÇØÁÖ¼¼¿ä.
+		if (!pathFile.exists()) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			pathFile.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.
 
-		// 5. µ¿ÀÏÇÑ ÆÄÀÏ¸í¿¡ °æ·Î¿¡ ÀÌ¹Ì Á¸ÀçÇÏ´Â ¹®Á¦ : ÀÌ¸§ Á¤Ã¥
+		// 5. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¥
 		// aa.jpg -> aa.jpg1 ==> aa1.jpg
 		// aa1.jpg -> aa(1).jpg
 		/*
 		 * File ? = new File(?);
 		 * 
-		 * if(? Á¸ÀçÇÑ´Ù¸é) { ²¿¸®(È®ÀåÀÚ)¸¦ Àß¶ó³½ ÀÌ¸§À» ¾ò°í ±× ¸¶Áö¸·¿¡ ¼Ò°ýÈ£()°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í ÀÖÀ¸¸é ¹øÈ£¸¦ ¾Ë¾Æ³»°í 1Áõ°¡µÈ °ªÀ»
-		 * ¾ò¾î¼­.. fileName = ?; }
+		 * if(? ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½) { ï¿½ï¿½ï¿½ï¿½(È®ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ß¶ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½È£()ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		 * ï¿½ï¿½î¼­.. fileName = ?; }
 		 */
 
 		File sameFile = new File(filePath);
@@ -162,32 +164,32 @@ public class NoticeController {
 		fos.close();
 		
 		
-		notice.setWriterId("newlec");
+		notice.setWriterId(principal.getName());
 		noticeDao.insert(notice);
 		
 		
 		
 
-		// ¸®µð·º¼Ç ¹æ½Ä : list ÆäÀÌÁö·Î
+		// ï¿½ï¿½ï¿½ð·º¼ï¿½ ï¿½ï¿½ï¿½ : list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return "redirect:list";
 
-		// Æ÷¿öµù ¹æ½Ä : return "admin/notice/reg";
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : return "admin/notice/reg";
 	}
 	/*
-	 * // GET ¿äÃ»
+	 * // GET ï¿½ï¿½Ã»
 	 * 
 	 * @RequestMapping(value="reg", method=RequestMethod.GET) public String reg() {
 	 * 
 	 * return "admin/notice/reg"; }
 	 * 
-	 * // POST ¿äÃ»
+	 * // POST ï¿½ï¿½Ã»
 	 * 
 	 * @RequestMapping(value="reg", method=RequestMethod.POST) public String
 	 * reg(String title) {
 	 * 
-	 * //¸®µð·º¼Ç ¹æ½Ä : list ÆäÀÌÁö·Î return "redirect:list";
+	 * //ï¿½ï¿½ï¿½ð·º¼ï¿½ ï¿½ï¿½ï¿½ : list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return "redirect:list";
 	 * 
-	 * //Æ÷¿öµù ¹æ½Ä : return "admin/notice/reg"; }
+	 * //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : return "admin/notice/reg"; }
 	 */
 
 	@GetMapping("detail")

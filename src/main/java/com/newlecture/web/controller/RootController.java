@@ -32,8 +32,8 @@ public class RootController {
 	private NoticeDao noticeDao;
 
 	/*
-	 * @RequestMapping("index") //@ResponseBody ÀÌ°É ºÙÀÌ¸é È­¸é¿¡ index¶ó´Â ¹®ÀÚ°¡ Ãâ·ÂµÊ public
-	 * String index(Model model) { model.addAttribute("x", "ÀÌÁøÇØ¹ö·È´Ù"); return
+	 * @RequestMapping("index") //@ResponseBody ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ È­ï¿½é¿¡ indexï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½Âµï¿½ public
+	 * String index(Model model) { model.addAttribute("x", "ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½È´ï¿½"); return
 	 * "index"; //-> /WEB-INF/view + index + .jsp }
 	 */
 
@@ -55,17 +55,17 @@ public class RootController {
 		String urlPath = "/upload";
 		String realPath = application.getRealPath(urlPath);
 		
-		/* ¹æ¹ý1: ¿ì¸®°¡ Á÷Á¢ ¸¸¤§¤¤ JSON ¹®ÀÚ¿­
+		/* ï¿½ï¿½ï¿½1: ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JSON ï¿½ï¿½ï¿½Ú¿ï¿½
 		String jsonList = fileDao.getJSONList(realPath);
 		System.out.println(realPath);
 		return jsonList;
 		*/
-		/* ¹æ¹ý2: GsonÀ» ÀÌ¿ëÇÑ JSON ¹®ÀÚ¿­
+		/* ï¿½ï¿½ï¿½2: Gsonï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ JSON ï¿½ï¿½ï¿½Ú¿ï¿½
 		List<com.newlecture.web.entity.File> list = fileDao.getList(realPath);
 		Gson gson = new Gson();
 		return gson.toJson(list);
 		*/
-		//¹æ¹ý 3: ±×³É °´Ã¼¸¦ ¹ÝÈ¯ÇØº¸ÀÚ.
+		//ï¿½ï¿½ï¿½ 3: ï¿½×³ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Øºï¿½ï¿½ï¿½.
 		List<com.newlecture.web.entity.File> list = fileDao.getList(realPath);
 		return list;
 	}
@@ -74,33 +74,33 @@ public class RootController {
 	@ResponseBody
 	public String upload(MultipartFile file, HttpServletRequest request) throws IOException {
 
-		// 1. ¾÷·Îµå °æ·Î¸¦ ¾ò±â
+		// 1. ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½
 		String urlPath = "/upload";
 		String path = request.getServletContext().getRealPath(urlPath);
 
 		System.out.println(path);
 
-		// 2. ¾÷·ÎµåµÈ ÆÄÀÏ¸í ¾ò±â
+		// 2. ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½
 		String fileName = file.getOriginalFilename();// filePart.getSubmittedFileName();
 
-		// 3. °æ·Î ±¸ºÐÀÚ ³Ö±â
+		// 3. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 		String filePath = path + java.io.File.separator + fileName; // d:\aa + "bb.jpg" -> d:\aabb.jpg
 
 		System.out.println(filePath);
 
-		// 4. °æ·Î°¡ ¾ø´Ù´Â ¿À·ù ¹®Á¦
+		// 4. ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		java.io.File pathFile = new java.io.File(path);
-		if (!pathFile.exists()) // Á¸ÀçÇÏÁö ¾ÊÀ¸¸é
-			pathFile.mkdirs();// »ý¼ºÇØÁÖ¼¼¿ä.
+		if (!pathFile.exists()) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			pathFile.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.
 
-		// 5. µ¿ÀÏÇÑ ÆÄÀÏ¸í¿¡ °æ·Î¿¡ ÀÌ¹Ì Á¸ÀçÇÏ´Â ¹®Á¦ : ÀÌ¸§ Á¤Ã¥
+		// 5. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Î¿ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¥
 		// aa.jpg -> aa.jpg1 ==> aa1.jpg
 		// aa1.jpg -> aa(1).jpg
 		/*
 		 * File ? = new File(?);
 		 * 
-		 * if(? Á¸ÀçÇÑ´Ù¸é) { ²¿¸®(È®ÀåÀÚ)¸¦ Àß¶ó³½ ÀÌ¸§À» ¾ò°í ±× ¸¶Áö¸·¿¡ ¼Ò°ýÈ£()°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í ÀÖÀ¸¸é ¹øÈ£¸¦ ¾Ë¾Æ³»°í 1Áõ°¡µÈ °ªÀ»
-		 * ¾ò¾î¼­.. fileName = ?; }
+		 * if(? ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½) { ï¿½ï¿½ï¿½ï¿½(È®ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ß¶ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½È£()ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		 * ï¿½ï¿½î¼­.. fileName = ?; }
 		 */
 
 		java.io.File sameFile = new java.io.File(filePath);
@@ -155,12 +155,12 @@ public class RootController {
 	 * 
 	 * @ResponseBody public String index() {
 	 * 
-	 * System.out.println("ÀÎµ¦½º¿äÃ»ÀÌ ÀÖ¾ú³×"); return "Welcome Home!"; }
+	 * System.out.println("ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½"); return "Welcome Home!"; }
 	 */
 
 	@RequestMapping("hello")
-	public void ¾Æ¹«ÇÔ¼ö¸í() {
-		System.out.println("Çï·Î¿äÃ»ÀÌ ÀÖ¾ú³×");
+	public void aaaaa() {
+		System.out.println("aaaaa");
 	}
 
 }

@@ -21,7 +21,7 @@
 		</ol>
 	</section>
 	<section>
-		<form method="post" action="reg" enctype="multipart/form-data">
+		<form method="post" action="reg?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 			<h1>공지사항 내용</h1>
 			<table>
 				<tbody>
